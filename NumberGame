@@ -1,0 +1,51 @@
+import java.util.Scanner;
+
+public class NumberGuessingGame {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int lowerBound = 1;
+        int upperBound = 100;
+        int maxAttempts = 4;
+        int score = 0;
+
+        do {
+            int targetNumber = generateRandomNumber(lowerBound, upperBound);
+            int attempts = 0;
+            
+            System.out.println("Guess the number between " + lowerBound + " and " + upperBound + ": ");
+
+            while (attempts < maxAttempts) {
+                int userGuess = scanner.nextInt();
+                attempts++;
+
+                if (userGuess == targetNumber) {
+                    System.out.println("Congratulations! You guessed the correct number in " + attempts + " attempts.");
+                    score++;
+                    break;
+                } else if (userGuess < targetNumber) {
+                    System.out.println("Too low. Try again.");
+                } else {
+                    System.out.println("Too high. Try again.");
+                }
+            }
+
+            System.out.println("The correct number was: " + targetNumber);
+            System.out.println("Your current score: " + score);
+            
+            System.out.println("Do you want to play again? (yes/no): ");
+            String playAgain = scanner.next().toLowerCase();
+            if (!playAgain.equals("yes")) {
+                break;
+            }
+
+        } while (true);
+
+        System.out.println("Thanks for playing! Your final score: " + score);
+    }
+
+    private static int generateRandomNumber(int lowerBound, int upperBound) {
+        // Generating a random number without using the Random class
+        return (int) (Math.random() * (upperBound - lowerBound + 1) + lowerBound);
+    }
+}
